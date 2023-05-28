@@ -2,7 +2,7 @@ import './index.css'
 
 const Eachitem = props => {
   const {happy, todo} = props
-  const {id, imageUrl, thumbnailUrl} = happy
+  const {imageUrl, thumbnailUrl} = happy
 
   const btn = () => {
     todo(thumbnailUrl)

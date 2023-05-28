@@ -6,7 +6,8 @@
 .greet1 {
   margin-bottom: 20px;
   display: flex;
-  justify-content: end;
+
+  justify-content: flex-end;
   align-items: baseline;
   padding-right: 25px;
 }
@@ -42,4 +43,17 @@
 }
 .score {
   color: white;
+}
+.victory {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.image {
+  height: 400px;
+}
+.head {
+  color: wheat;
+  margin-left: 10px;
 }

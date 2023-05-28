@@ -7,17 +7,16 @@ import './index.css'
 class Eachlist extends Component {
   state = {
     finallist: 'FRUIT',
-    todoId: '',
-    runing: 0,
+
     result12: 0,
     score: 0,
     timeElapsedInSeconds: 60,
-    timerLimitInMinutes: 1,
-    isTimerRunning: false,
+
+    back: false,
   }
 
-  componentWillUnmount() {
-    clearInterval(this.timeInterval)
+  componentDidMount() {
+    this.onStartTimer()
   }
 
   filtered = () => {
@@ -42,7 +41,8 @@ class Eachlist extends Component {
 
   updateTime = () => {
     const {timeElapsedInSeconds} = this.state
-    if (timeElapsedInSeconds === 0) {
+    if (timeElapsedInSeconds === 1) {
+      this.setState({back: true})
       clearInterval(this.timeInterval)
     }
     this.setState(prevState => ({
@@ -52,13 +52,12 @@ class Eachlist extends Component {
 
   onStartTimer = () => {
     const {timeElapsedInSeconds} = this.state
-    if (timeElapsedInSeconds === 0) {
+    if (timeElapsedInSeconds === 1) {
+      this.setState({back: true})
       clearInterval(this.timeInterval)
     } else {
       this.timeInterval = setInterval(this.updateTime, 1000)
     }
-
-    this.setState({isTimerRunning: true})
   }
 
   renderSeconds = () => {
@@ -82,8 +81,6 @@ class Eachlist extends Component {
   }
 
   todo = id => {
-    this.setState({todoId: id})
-
     const {result12} = this.state
     const {imagesList} = this.props
     const img = Math.floor(Math.random() * 30)
@@ -98,7 +95,7 @@ class Eachlist extends Component {
   }
 
   render() {
-    const {runing, result12, score} = this.state
+    const {result12, score, back} = this.state
 
     const {imagesList} = this.props
 
@@ -111,29 +108,46 @@ class Eachlist extends Component {
         <div className="greet1">
           <h1 className="score">score:{score}</h1>
 
-          <h1>time:{this.renderSeconds()}</h1>
+          <h1 className="head">time:{this.renderSeconds()}</h1>
         </div>
-        <div className="greet4">
-          <div className="greet3">
-            <img className="size" src={imagesList[result12].thumbnailUrl} />
-          </div>
+        <div>
+          {back ? (
+            <div className="victory">
+              <img
+                alt="avatar"
+                className="image"
+                src="https://assets.ccbp.in/frontend/react-js/match-game-trophy.png"
+              />
+              <h1 className="head">your score: {score}</h1>
+            </div>
+          ) : (
+            <div className="greet4">
+              <div className="greet3">
+                <img
+                  className="size"
+                  alt="avatar"
+                  src={imagesList[result12].thumbnailUrl}
+                />
+              </div>
 
-          <div className="btncont">
-            <button type="button" className="button" onClick={this.btn1}>
-              fruites
-            </button>
-            <button type="button" className="button" onClick={this.btn2}>
-              animals
-            </button>
-            <button type="button" className="button" onClick={this.btn3}>
-              places
-            </button>
-          </div>
-          <div className="down">
-            {result.map(each => (
-              <Eachitem happy={each} key={each.id} todo={this.todo} />
-            ))}
-          </div>
+              <div className="btncont">
+                <button type="button" className="button" onClick={this.btn1}>
+                  fruites
+                </button>
+                <button type="button" className="button" onClick={this.btn2}>
+                  animals
+                </button>
+                <button type="button" className="button" onClick={this.btn3}>
+                  places
+                </button>
+              </div>
+              <div className="down">
+                {result.map(each => (
+                  <Eachitem happy={each} key={each.id} todo={this.todo} />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     )
