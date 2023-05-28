@@ -1,0 +1,10 @@
+.imageurl {
+  height: 180px;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+.btn {
+  border: none;
+  background-color: transparent;
+  border-width: 0px;
+}
